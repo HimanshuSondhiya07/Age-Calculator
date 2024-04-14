@@ -1,44 +1,44 @@
-let userInput = document.getElementById("date");
-userInput.max = new Date().toISOString().split("T")[0];
-let result = document.getElementById("result");
+let userInputDate = document.getElementById("date");
+userInputDate.max = new Date().toISOString().split("T")[0];
+let resultDisplay = document.getElementById("result");
 
 function calculateAge(){
-    let birthDate = new Date(userInput.value);
+    let birthDate = new Date(userInputDate.value);
 
-    let d1 = birthDate.getDate();
-    let m1 = birthDate.getMonth() + 1;  // JavaScript months are 0-based so we add 1 to make it 1-based
-    let y1 = birthDate.getFullYear();
+    let birthDay = birthDate.getDate();
+    let birthMonth = birthDate.getMonth() + 1;  // JavaScript months are 0-based so we add 1 to make it 1-based
+    let birthYear = birthDate.getFullYear();
     
-    let today = new Date();
+    let todayDate = new Date();
 
-    let d2 = today.getDate();
-    let m2 = today.getMonth() + 1;
-    let y2 = today.getFullYear();
+    let todayDay = todayDate.getDate();
+    let todayMonth = todayDate.getMonth() + 1;
+    let todayYear = todayDate.getFullYear();
 
-    let d3, m3, y3; //Difference  in days, months and years from birth date to current date.
+    let ageDays, ageMonths, ageYears;
 
-    y3 = y2 - y1;
-    if(m2 >= m1){
-        m3 = m2 - m1;
+    ageYears = todayYear - birthYear;
+    if(todayMonth >= birthMonth){
+        ageMonths = todayMonth - birthMonth;
     } else {
-        y3--;
-        m3 = 12 + m2 - m1;
+        ageYears--;
+        ageMonths = 12 + todayMonth - birthMonth;
     }
 
-    if(d2 >= d1){
-        d3 = d2 - d1;
+    if(todayDay >= birthDay){
+        ageDays = todayDay - birthDay;
     } else {
-        m3--;
-        d3 = getDaysInMonth(y1, m1) + d2 - d1;
+        ageMonths--;
+        ageDays = daysInMonth(birthYear, birthMonth) + todayDay - birthDay;
     }
 
-    if(m3 < 0){
-        m3 = 11;
-        y3--;
+    if(ageMonths < 0){
+        ageMonths = 11;
+        ageYears--;
     }
-    result.innerHTML = "Your age is : "+y3+" Years, "+m3+" Months and "  + d3+ " Days.";
+    resultDisplay.innerHTML = "Your age is : "+ageYears+" Years, "+ageMonths+" Months and "  + ageDays + " Days.";
 }
 
-function getDaysInMonth(year, month){
+function daysInMonth(year, month){
     return new Date(year, month, 0).getDate();
 }
